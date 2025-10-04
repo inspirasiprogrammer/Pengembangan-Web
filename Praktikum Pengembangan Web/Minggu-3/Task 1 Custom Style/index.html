@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Contoh</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+      }
+      header {
+        background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+        color: white;
+        padding: 18px;
+        text-align: center;
+        letter-spacing: 2px;
+        font-size: 1.3em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      nav {
+        background: #333;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        font-size: 1.1em;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      }
+      nav a {
+        color: white;
+        margin: 0 18px;
+        text-decoration: none;
+        padding: 6px 14px;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+      nav a:hover {
+        background: #4caf50;
+      }
+      #content {
+        padding: 24px;
+        background: #fff;
+        margin: 32px auto;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+        max-width: 900px;
+      }
+      #judul {
+        color: #185a9d;
+        margin-bottom: 18px;
+        text-align: center;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 18px;
+        background: #fafafa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      }
+      th, td {
+        padding: 10px 8px;
+        border: 1px solid #e0e0e0;
+        text-align: left;
+      }
+      th {
+        background: #185a9d;
+        color: #fff;
+        font-weight: 600;
+      }
+      tr:hover {
+        background: #e3f2fd;
+      }
+      .id-cell {
+        cursor: pointer;
+        color: #1976d2;
+        font-weight: bold;
+        position: relative;
+      }
+      .id-cell:hover {
+        text-decoration: underline;
+      }
+      .tooltip {
+        visibility: hidden;
+        background: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 6px 12px;
+        position: absolute;
+        z-index: 10;
+        left: 50%;
+        top: 120%;
+        transform: translateX(-50%);
+        font-size: 0.95em;
+        opacity: 0;
+        transition: opacity 0.2s;
+        white-space: nowrap;
+      }
+      .id-cell:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        margin-top: 40px;
+        border-radius: 0 0 12px 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Ayo Belajar AJAX</h1>
+    </header>
+
+    <nav>
+      <a href="#" class="navigasi">Home</a>
+      <a href="#user" class="navigasi">User</a>
+    </nav>
+
+    <div id="content">
+      <h2 id="judul">Halaman Home</h2>
+      <div id="subcontent">
+        Ini adalah area konten utama. Anda dapat menambahkan teks, gambar, dan
+        elemen lain di sini.
+      </div>
+    </div>
+
+    <script>
+      let mainContent = document.getElementById("content").innerHTML;
+
+      let navigasi = document.getElementsByClassName("navigasi");
+      navigasi[0].addEventListener("click", viewHome);
+      navigasi[1].addEventListener("click", viewUser);
+
+      function viewHome() {
+        let konten = document.getElementById("content");
+        konten.innerHTML = mainContent;
+      }
+
+      function viewUser() {
+        let judul = document.getElementById("judul");
+        judul.innerHTML = "Tabel User";
+
+        let subkonten = document.getElementById("subcontent");
+        subkonten.innerHTML = "";
+
+        let xhr = new XMLHttpRequest();
+        let link = "https://jsonplaceholder.typicode.com/users";
+
+        try {
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              let obj = JSON.parse(xhr.responseText);
+
+              let konten = `
+                <table>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>City</th>
+                  </tr>
+              `;
+
+              obj.forEach(user => {
+                konten += `
+                  <tr>
+                    <td class="id-cell" data-url="${user.website}" style="position:relative;">
+                      ${user.id}
+                      <span class="tooltip">${user.company.name}</span>
+                    </td>
+                    <td>${user.name}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.address.city}</td>
+                  </tr>
+                `;
+              });
+
+              konten += "</table>";
+
+              subkonten.innerHTML = konten;
+
+              // Tambahkan event listener untuk klik pada setiap ID
+              const idCells = subkonten.querySelectorAll('.id-cell');
+              idCells.forEach(cell => {
+                cell.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  let url = cell.getAttribute('data-url');
+                  if (url) {
+                    if (!url.startsWith('http')) url = 'https://' + url;
+                    window.open(url, '_blank');
+                  }
+                });
+              });
+            }
+          };
+
+          xhr.open("GET", link, true);
+          xhr.send();
+        } catch (e) {
+          subkonten.innerHTML = "Gagal memuat data user";
+        }
+      }
+    </script>
+  </body>
+</html>

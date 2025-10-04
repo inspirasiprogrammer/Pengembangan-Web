@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Contoh</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background: #4caf50;
+        color: white;
+        padding: 15px;
+        text-align: center;
+      }
+      nav {
+        background: #333;
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+      }
+      .content {
+        padding: 15px;
+      }
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Ayo Belajar AJAX</h1>
+    </header>
+
+    <nav>
+      <a href="#" class="navigasi">Home</a>
+      <a href="#user" class="navigasi">User</a>
+    </nav>
+
+    <div id="content">
+      <h2 id="judul">Halaman Home</h2>
+      <div id="subcontent">
+        Ini adalah area konten utama. Anda dapat menambahkan teks, gambar, dan
+        elemen lain di sini.
+      </div>
+    </div>
+
+    <script>
+      let mainContent = document.getElementById("content").innerHTML;
+
+      let navigasi = document.getElementsByClassName("navigasi");
+      navigasi[0].addEventListener("click", viewHome);
+      navigasi[1].addEventListener("click", viewUser);
+
+      function viewHome() {
+        let konten = document.getElementById("content");
+        konten.innerHTML = mainContent;
+      }
+
+      function viewUser() {
+        let judul = document.getElementById("judul");
+        judul.innerHTML = "Tabel User";
+
+        let subkonten = document.getElementById("subcontent");
+        subkonten.innerHTML = "";
+
+        let xhr = new XMLHttpRequest();
+        let link = "https://jsonplaceholder.typicode.com/users";
+
+        try {
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+              let obj = JSON.parse(xhr.responseText);
+
+              let konten = `
+                <table border="1px">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>City</th>
+                  </tr>
+              `;
+
+              obj.forEach(user => {
+                konten += `
+                  <tr>
+                    <td>${user.id}</td>
+                    <td>${user.name}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>${user.address.city}</td>
+                  </tr>
+                `;
+              });
+
+              konten += "</table>";
+
+              subkonten.innerHTML = konten;
+            }
+          };
+
+          xhr.open("GET", link, true);
+          xhr.send();
+        } catch (e) {
+          subkonten.innerHTML = "Gagal memuat data user";
+        }
+      }
+    </script>
+  </body>
+</html>
