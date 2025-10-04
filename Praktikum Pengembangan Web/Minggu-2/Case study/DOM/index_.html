@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        #header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        #main-container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        #title {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .card-text {
+            margin-top: 20px;
+        }
+        .content {
+            margin: 10px 0;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        #tgl {
+          color: red;
+        }
+
+        #count {
+          color: #2980b9;
+        }
+        
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            #title {
+                font-size: 24px;
+            }
+            .card-text {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+      <span class="card-text" id="tgl">Tanggal : </span>
+    </div>
+    <div id="main-container">
+        <h1 id="title">Judul</h1>
+        <p class="content">Konten</p>
+        <span class="card-text" id="count">Jumlah kalimat : </span>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
