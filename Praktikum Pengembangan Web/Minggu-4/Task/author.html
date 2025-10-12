@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Contoh</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f7f7f7;
+      }
+      header {
+        background: #4caf50;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      #content {
+        max-width: 500px;
+        margin: 30px auto;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+        padding: 30px 20px 20px 20px;
+      }
+      .author-view {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .nav-btn {
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px 18px;
+        font-size: 18px;
+        cursor: pointer;
+        margin: 0 10px;
+        transition: background 0.2s;
+      }
+      .nav-btn:hover {
+        background: #388e3c;
+      }
+      .author-name {
+        font-size: 18px;
+        font-weight: bold;
+        min-width: 180px;
+        text-align: center;
+        color: #333;
+      }
+      .image-view {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .author-img {
+        max-width: 100%;
+        max-height: 300px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        background: #eee;
+      }
+      footer {
+        background: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        position: relative;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Ayo Belajar AJAX</h1>
+    </header>
+
+    <div id="content">
+      <h2 id="judul">Author Page</h2>
+        <div id="subcontent">
+          <div class="author-view">
+            <button id="prevBtn" class="nav-btn">&lt;&lt;</button>
+            <span id="authorName" class="author-name"></span>
+            <button id="nextBtn" class="nav-btn">&gt;&gt;</button>
+          </div>
+          <div class="image-view">
+            <img id="authorImg" src="" alt="Author Image" class="author-img" />
+          </div>
+        </div>
+    </div>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
