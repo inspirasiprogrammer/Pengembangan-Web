@@ -1,0 +1,90 @@
+{
+  "info": {
+    "_postman_id": "a6f3c2c2-8f25-4b09-9f2a-7c21b8a2d4b7",
+    "name": "Blog Artikel Interaktif API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Minimal Postman collection for Blog Artikel API (GET/POST tanggapan)."
+  },
+  "item": [
+    {
+      "name": "Get Tanggapan by Post ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tanggapan/{{post_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tanggapan",
+            "{{post_id}}"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "  pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create Tanggapan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"post_id\": {{post_id}},\n  \"isi_tanggapan\": \"Komentar saya\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tanggapan",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "tanggapan"
+          ]
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status is 201 or 200', function () {",
+              "  pm.expect([200,201]).to.include(pm.response.code);",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "post_id",
+      "value": "1"
+    }
+  ]
+}
