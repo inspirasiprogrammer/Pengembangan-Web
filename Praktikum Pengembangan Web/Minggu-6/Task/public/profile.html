@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil - Latihan Minggu 6</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Profil</h1>
+        <nav>
+            <a href="/home">Beranda</a> |
+            <a href="/about">Tentang Kami</a> |
+            <a href="/contact">Kontak</a> |
+            <a href="/services">Layanan</a> |
+            <a href="/gallery">Galeri</a> |
+            <a href="/profile">Profil</a>
+        </nav>
+    </header>
+    <main>
+        <h2>Profile</h2>
+        <div id="profileForm">
+            <form onsubmit="event.preventDefault(); var username = document.getElementById('username').value.trim(); if(username){ window.location.href='/profile/' + encodeURIComponent(username); }">
+                <label for="username">Masukkan Username:</label>
+                <input type="text" id="username" name="username" required>
+                <button type="submit">Lihat Profil</button>
+            </form>
+            <p>Ingin melihat profil? Coba akses <a href="/profile/namakamu">/profile/namakamu</a></p>
+        </div>
+        <div id="profileDisplay" style="display: none;">
+            <h3>Selamat Datang!</h3>
+            <p><strong>Username:</strong> <span id="displayUsername"></span></p>
+            <p><a href="/profile">Kembali ke form profil</a></p>
+        </div>
+    </main>
+    <script>
+        // Cek apakah ada parameter username di URL
+        const pathParts = window.location.pathname.split('/');
+        const username = pathParts[pathParts.length - 1];
+        
+        if (username && username !== 'profile') {
+            // Jika ada username, tampilkan profil dan sembunyikan form
+            document.getElementById('profileForm').style.display = 'none';
+            document.getElementById('profileDisplay').style.display = 'block';
+            document.getElementById('displayUsername').textContent = decodeURIComponent(username);
+        }
+    </script>
+    <footer>
+        <p>&copy; 2025 Praktikum Pengembangan Web</p>
+    </footer>
+</body>
+</html>
