@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Review Evaluasi Kode</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 2em;
+			background: #f9f9f9;
+		}
+
+		h1 {
+			color: #2c3e50;
+		}
+
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 2em;
+		}
+
+		th,
+		td {
+			border: 1px solid #bbb;
+			padding: 8px;
+			text-align: left;
+		}
+
+		th {
+			background: #eaeaea;
+		}
+
+		.nilai {
+			font-weight: bold;
+			color: #2980b9;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Rubrik Penilaian Evaluasi Kode</h1>
+	<table>
+		<tr>
+			<th>Kriteria</th>
+			<th>Sangat Baik</th>
+			<th>Baik</th>
+			<th>Cukup</th>
+			<th>Kurang</th>
+		</tr>
+		<tr>
+			<td>Fungsionalitas Backend (25%)</td>
+			<td>Semua rute API (GET &amp; POST) berjalan sesuai spesifikasi, validasi dasar diterapkan, respons JSON
+				tepat.</td>
+			<td>Semua rute bekerja, namun ada kekurangan kecil pada format respons atau penanganan edge case.</td>
+			<td>Salah satu rute tidak berjalan atau keduanya mengalami masalah fungsional signifikan.</td>
+			<td>Sebagian besar atau seluruh rute gagal. Server atau database bermasalah.</td>
+		</tr>
+		<tr>
+			<td>Fungsionalitas Frontend (25%)</td>
+			<td>Halaman memuat dan menampilkan seluruh data dari API eksternal maupun lokal secara dinamis dan akurat.
+				Submit form berjalan lancar.</td>
+			<td>Data tampil, tetapi ada gangguan minor pada tampilan atau update setelah submit.</td>
+			<td>Data API eksternal tampil, namun data lokal tidak tampil atau POST gagal.</td>
+			<td>Halaman gagal memuat/menampilkan data secara signifikan. Ada error JS fatal.</td>
+		</tr>
+		<tr>
+			<td>Integrasi Frontend–Backend (20%)</td>
+			<td>Fetch GET &amp; POST berjalan mulus tanpa error, data diterima dan diproses dengan benar.</td>
+			<td>Komunikasi berjalan, tetapi kadang terjadi error koneksi atau tampilan data tidak konsisten.</td>
+			<td>Komunikasi hanya satu arah (contoh: GET berhasil, POST gagal).</td>
+			<td>Tidak ada komunikasi antara frontend dan backend.</td>
+		</tr>
+		<tr>
+			<td>Manipulasi DOM (15%)</td>
+			<td>Elemen HTML dibuat dan dimodifikasi secara efisien, dinamis, dan sesuai struktur.</td>
+			<td>Elemen HTML berhasil dibuat, tetapi strukturnya kurang rapi atau terlalu banyak innerHTML.</td>
+			<td>Manipulasi DOM dilakukan tetapi strukturnya keliru atau tidak lengkap.</td>
+			<td>DOM gagal dimanipulasi; halaman kosong atau statis.</td>
+		</tr>
+		<tr>
+			<td>Kualitas Kode (15%)</td>
+			<td>Kode bersih, mudah dibaca, penamaan jelas, penggunaan async/await tepat.</td>
+			<td>Kode berfungsi tetapi kurang rapi atau penamaan tidak konsisten.</td>
+			<td>Kode berantakan, banyak duplikasi, sulit diikuti.</td>
+			<td>Kode tidak terstruktur dan membingungkan.</td>
+		</tr>
+	</table>
+	<h2>Tabel Nilai Evaluasi</h2>
+	<table>
+		<tr>
+			<th>Kriteria</th>
+			<th>Nilai</th>
+			<th>Catatan</th>
+		</tr>
+		<tr>
+			<td>Fungsionalitas Backend</td>
+			<td class="nilai">Sangat Baik</td>
+			<td>Semua rute API berjalan sesuai spesifikasi, validasi dasar sudah ada, respons JSON tepat.</td>
+		</tr>
+		<tr>
+			<td>Fungsionalitas Frontend</td>
+			<td class="nilai">Sangat Baik</td>
+			<td>Data dari API eksternal dan lokal tampil dinamis, submit form lancar.</td>
+		</tr>
+		<tr>
+			<td>Integrasi Frontend–Backend</td>
+			<td class="nilai">Sangat Baik</td>
+			<td>Fetch GET &amp; POST berjalan mulus, data diterima dan diproses benar.</td>
+		</tr>
+		<tr>
+			<td>Manipulasi DOM</td>
+			<td class="nilai">Sangat Baik</td>
+			<td>Elemen HTML dibuat dan dimodifikasi dinamis, struktur rapi.</td>
+		</tr>
+		<tr>
+			<td>Kualitas Kode</td>
+			<td class="nilai">Sangat Baik</td>
+			<td>Kode bersih, penamaan jelas, async/await digunakan tepat.</td>
+		</tr>
+		<tr>
+			<th>Total Nilai</th>
+			<th class="nilai">100</th>
+			<th>Sangat Baik</th>
+		</tr>
+	</table>
+</body>
+
+</html>

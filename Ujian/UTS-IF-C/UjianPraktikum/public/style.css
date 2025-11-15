@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #141414;
+    color: #ffffff;
+    margin: 0;
+}
+
+header {
+    background-color: #000000;
+    text-align: center;
+    padding: 1.2rem 0;
+    border-bottom: 2px solid #e50914;
+}
+
+#acara-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 25px;
+    padding: 25px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.show-card {
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+}
+
+.show-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.show-card h3 {
+    margin: 15px 0 10px 0;
+    font-size: 1.1em;
+    min-height: 44px; /* Agar tinggi judul konsisten */
+}
+
+.rating-display {
+    font-size: 0.9em;
+    color: #aaa;
+    margin-bottom: 15px;
+}
+
+.show-card form {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.show-card select {
+    flex-grow: 1;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.show-card button {
+    padding: 8px 15px;
+    border: none;
+    background-color: #e50914;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
