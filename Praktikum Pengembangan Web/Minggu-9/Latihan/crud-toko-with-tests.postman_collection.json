@@ -1,0 +1,195 @@
+{
+  "info": {
+    "name": "CRUD Toko - Items API (Dengan Test Lengkap)",
+    "_postman_id": "b4b8c1e0-0000-0000-0000-crud-toko-items-tests",
+    "description": "Koleksi Postman untuk menguji API CRUD tabel `items` pada database `crud_toko` (Node.js + Express.js + MySQL) secara end-to-end dengan test otomatis.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET - List Semua Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/api/items"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response berupa array atau list\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "POST - Tambah Item Baru",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Pensil 2B\",\n  \"qty_stock\": 100,\n  \"price\": 2500\n}"
+        },
+        "url": "{{base_url}}/api/items"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Cek status code (boleh 200 atau 201 tergantung implementasi)",
+              "pm.test(\"Status code 200/201\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "",
+              "let body;",
+              "pm.test(\"Response bertipe JSON\", function () {",
+              "    body = pm.response.json();",
+              "    pm.expect(body).to.be.an('object');",
+              "});",
+              "",
+              "pm.test(\"Field name, qty_stock, price ada\", function () {",
+              "    pm.expect(body).to.have.property('name');",
+              "    pm.expect(body).to.have.property('qty_stock');",
+              "    pm.expect(body).to.have.property('price');",
+              "});",
+              "",
+              "// Cari id dari beberapa kemungkinan format (id, insertId, data.id)",
+              "pm.test(\"Menyimpan item_id ke collection variables\", function () {",
+              "    const id = body.id || body.insertId || (body.data && body.data.id);",
+              "    pm.expect(id, \"id tidak ditemukan di response\").to.exist;",
+              "    pm.collectionVariables.set('item_id', id);",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "GET - Detail Item by ID ({{item_id}})",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/api/items/{{item_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response berisi object item\", function () {",
+              "    const json = pm.response.json();",
+              "    pm.expect(json).to.be.an('object');",
+              "    pm.expect(json).to.have.property('id');",
+              "    pm.expect(json.id).to.eql(parseInt(pm.collectionVariables.get('item_id'), 10));",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "PUT - Update Item by ID ({{item_id}})",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Pensil 2B Premium\",\n  \"qty_stock\": 150,\n  \"price\": 3000\n}"
+        },
+        "url": "{{base_url}}/api/items/{{item_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code 200/204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});",
+              "",
+              "if (pm.response.code === 200) {",
+              "    pm.test(\"Response update mengembalikan data terbaru\", function () {",
+              "        const body = pm.response.json();",
+              "        pm.expect(body).to.be.an('object');",
+              "        pm.expect(body).to.have.property('name');",
+              "        pm.expect(body.name).to.equal('Pensil 2B Premium');",
+              "    });",
+              "}"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "DELETE - Hapus Item by ID ({{item_id}})",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{base_url}}/api/items/{{item_id}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code 200/204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});",
+              "",
+              "pm.test(\"Cek pesan sukses jika ada\", function () {",
+              "    try {",
+              "        const body = pm.response.json();",
+              "        if (body && typeof body === 'object') {",
+              "            pm.expect(body).to.have.any.keys('message', 'success');",
+              "        }",
+              "    } catch (e) {",
+              "        // Jika tidak ada body (204 No Content), abaikan",
+              "    }",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "item_id",
+      "value": "1"
+    }
+  ]
+}

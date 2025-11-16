@@ -1,0 +1,74 @@
+{
+  "info": {
+    "name": "CRUD Toko - Items API",
+    "_postman_id": "b4b8c1e0-0000-0000-0000-crud-toko-items",
+    "description": "Koleksi Postman untuk menguji API CRUD tabel `items` pada database `crud_toko` (Node.js + Express.js + MySQL).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET - List Semua Items",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/api/items"
+      }
+    },
+    {
+      "name": "GET - Detail Item by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{base_url}}/api/items/1"
+      }
+    },
+    {
+      "name": "POST - Tambah Item Baru",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Pensil 2B\",\n  \"qty_stock\": 100,\n  \"price\": 2500\n}"
+        },
+        "url": "{{base_url}}/api/items"
+      }
+    },
+    {
+      "name": "PUT - Update Item by ID",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Pensil 2B Premium\",\n  \"qty_stock\": 150,\n  \"price\": 3000\n}"
+        },
+        "url": "{{base_url}}/api/items/1"
+      }
+    },
+    {
+      "name": "DELETE - Hapus Item by ID",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{base_url}}/api/items/1"
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000"
+    }
+  ]
+}
