@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Edit Item</title>
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+	<div class="container mt-5">
+		<h1 id="judul" class="text-primary text-center mb-4">Edit Item</h1>
+		<form class="border p-4 bg-white shadow rounded">
+			<div class="mb-3">
+				<label for="name" class="form-label">Nama Item</label>
+				<input type="text" id="name" class="form-control" value="<%= barang.name %>" required>
+			</div>
+			<div class="mb-3">
+				<label for="qty_stock" class="form-label">Stok Item</label>
+				<input type="number" id="qty_stock" class="form-control" min="0" value="<%= barang.qty_stock %>" required>
+			</div>
+			<div class="mb-3">
+				<label for="price" class="form-label">Harga Item</label>
+				<input type="number" id="price" class="form-control" min="0" value="<%= barang.price %>" required>
+			</div>
+			<input type="hidden" id="id" class="form-control" value="<%= barang.id %>" required>
+			<div class="d-flex justify-content-between">
+				<button type="submit" id="editData" class="btn btn-primary">Simpan Data Item</button>
+				<button type="button" id="batal" class="btn btn-secondary" onclick="history.back()">Kembali</button>
+			</div>
+		</form>
+	</div>
+	<!-- Bootstrap JS (Optional) -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		let itemId = parseInt(document.getElementById("id").value);
+		async function editData(event) {
+			event.preventDefault();
+			let name = document.getElementById("name").value;
+			let qty_stock = parseInt(document.getElementById("qty_stock").value);
+			let price = parseInt(document.getElementById("price").value);
+			let result = await fetch(`/api/items/${itemId}`, {
+				method: "PUT",
+				headers: {
+					"Content-type": "application/json"
+				},
+				body: JSON.stringify({ name, qty_stock, price })
+			});
+			if (!result.ok) {
+				return new Error("Failed to update data");
+			} else {
+				let response = await result.json();
+				if (response.response != null) {
+					alert("Data item berhasil diperbaharui");
+					window.location.href = "/";
+				} else {
+					alert("Gagal memperbaharui data item");
+				}
+			}
+		}
+		let edit = document.getElementById("editData");
+		edit.addEventListener('click', editData);
+	</script>
+</body>
+</html>

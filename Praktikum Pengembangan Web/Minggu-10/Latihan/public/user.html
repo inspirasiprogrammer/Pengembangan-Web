@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Halaman Pengguna</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e3f2fd;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2196f3;
+            color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 36px;
+            margin: 0;
+        }
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
+        .content-box {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        .content-box h2 {
+            color: #0d47a1;
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        .content-box p {
+            font-size: 18px;
+            color: #01579b;
+            line-height: 1.6;
+        }
+        footer {
+            background-color: #2196f3;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Selamat Datang</h1>
+</header>
+
+<div class="main-content">
+    <div class="content-box">
+        <h2>Hello, <span id="userName">(nama user)</span></h2>
+        <p>Selamat datang di halaman kami. Kami senang Anda bergabung bersama kami!</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Semua Hak Dilindungi. Kebijakan Privasi</p>
+</footer>
+
+</body>
+<script>
+    // Fungsi untuk mendapatkan bagian terakhir dari URL path
+    function getUsernameFromURL() {
+        const path = window.location.pathname;
+        const segments = path.split('/');
+        return segments[segments.length - 1];
+    }
+    // Menampilkan
+    document.getElementById('userName').textContent = getUsernameFromURL();
+    
+</script>
+</html>

@@ -1,0 +1,245 @@
+{
+  "info": {
+    "name": "CRUD Suppliers - crud_toko_project",
+    "_postman_id": "b3c0c8ec-0000-0000-0000-000000000000",
+    "description": "Postman collection untuk menguji endpoint CRUD tabel `suppliers` pada project `crud_toko_project`. Termasuk test otomatis untuk setiap endpoint.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "supplierId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Suppliers - CREATE (POST /api/suppliers)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"PT Maju Jaya\",\n  \"address\": \"Jl. Merdeka No. 10\",\n  \"phone\": \"081234567890\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers"
+          ]
+        },
+        "description": "Membuat supplier baru pada tabel `suppliers`."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code harus 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response harus berupa JSON', function () {",
+              "    pm.response.to.be.withBody;",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "let jsonData = pm.response.json();",
+              "",
+              "pm.test('Harus ada properti message', function () {",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "});",
+              "",
+              "pm.test('Harus ada properti insertedId', function () {",
+              "    pm.expect(jsonData).to.have.property('insertedId');",
+              "});",
+              "",
+              "// Simpan insertedId sebagai variable collection supplierId",
+              "pm.collectionVariables.set('supplierId', jsonData.insertedId);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers - READ ALL (GET /api/suppliers)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers"
+          ]
+        },
+        "description": "Mengambil semua data suppliers."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code harus 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response harus berupa JSON array', function () {",
+              "    pm.response.to.be.withBody;",
+              "    pm.response.to.be.json;",
+              "    let data = pm.response.json();",
+              "    pm.expect(data).to.be.an('array');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers - READ BY ID (GET /api/suppliers/:id)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers/{{supplierId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers",
+            "{{supplierId}}"
+          ]
+        },
+        "description": "Mengambil data supplier berdasarkan ID yang disimpan di variable `supplierId`."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code harus 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response harus berupa object supplier', function () {",
+              "    pm.response.to.be.withBody;",
+              "    pm.response.to.be.json;",
+              "    let data = pm.response.json();",
+              "    pm.expect(data).to.be.an('object');",
+              "    pm.expect(data).to.have.property('id');",
+              "    pm.expect(data).to.have.property('name');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers - UPDATE (PUT /api/suppliers/:id)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"PT Maju Jaya Abadi\",\n  \"address\": \"Jl. Merdeka No. 10, Jakarta\",\n  \"phone\": \"081298765432\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers/{{supplierId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers",
+            "{{supplierId}}"
+          ]
+        },
+        "description": "Mengupdate data supplier berdasarkan ID."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code harus 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Message harus menyatakan update berhasil', function () {",
+              "    let data = pm.response.json();",
+              "    pm.expect(data).to.have.property('message');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Suppliers - DELETE (DELETE /api/suppliers/:id)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/suppliers/{{supplierId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "suppliers",
+            "{{supplierId}}"
+          ]
+        },
+        "description": "Menghapus supplier berdasarkan ID."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code harus 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Message harus menyatakan delete berhasil', function () {",
+              "    let data = pm.response.json();",
+              "    pm.expect(data).to.have.property('message');",
+              "});"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
